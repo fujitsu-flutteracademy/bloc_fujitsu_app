@@ -7,8 +7,11 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   CounterBloc() : super(CounterState.initial()) {
     on<IncrementCounterEvent>((event, emit) {
       int newValue = event.incrementNum;
+
+      emit(state.copyWith(formState: FormState.loading));
       newValue++;
       print(newValue);
+      emit(state.copyWith(formState: FormState.success));
       final newState = state.copyWith(counter: newValue);
       emit(newState);
     });
@@ -18,6 +21,13 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
       newValue--;
       print(newValue);
       final newState = state.copyWith(counter: newValue);
+      emit(newState);
+    });
+
+    on<ChangeStateFormEvent>((event, emit) {
+      FormState formState = event.formState;
+
+      final newState = state.copyWith(formState: formState);
       emit(newState);
     });
   }

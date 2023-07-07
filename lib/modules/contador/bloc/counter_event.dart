@@ -19,3 +19,9 @@ class ChangeNameEvent extends CounterEvent {
 
   ChangeNameEvent({required this.name});
 }
+
+class ChangeStateFormEvent extends CounterEvent {
+  final FormState formState;
+
+  ChangeStateFormEvent({required this.formState});
+}

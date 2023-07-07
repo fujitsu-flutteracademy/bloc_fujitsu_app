@@ -2,12 +2,15 @@ import 'package:bloc_fujitsu_app/modules/contador/bloc/counter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+int myIncrement = 27;
+
 class CounterPage extends StatelessWidget {
   const CounterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CounterBloc, CounterState>(
+    return BlocConsumer<CounterBloc, CounterState>(
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -31,9 +34,10 @@ class CounterPage extends StatelessWidget {
                   print("Hola mundo");
                   context.read<CounterBloc>().add(
                         IncrementCounterEvent(
-                          incrementNum: state.counter,
+                          incrementNum: myIncrement,
                         ),
                       );
+                  print(myIncrement);
                 },
                 child: const Icon(Icons.add),
               ),
