@@ -1,15 +1,16 @@
-import 'package:bloc_fujitsu_app/modules/contador/bloc/counter_bloc.dart';
+// import 'package:bloc_fujitsu_app/modules/contador/bloc/counter_bloc.dart';
+import 'package:bloc_fujitsu_app/modules/contador/cubit/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-int myIncrement = 27;
+// int myIncrement = 27;
 
 class CounterPage extends StatelessWidget {
   const CounterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CounterBloc, CounterState>(
+    return BlocConsumer<CounterCubit, CounterState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
@@ -32,12 +33,16 @@ class CounterPage extends StatelessWidget {
                 heroTag: 'Suma',
                 onPressed: () {
                   print("Hola mundo");
-                  context.read<CounterBloc>().add(
-                        IncrementCounterEvent(
-                          incrementNum: myIncrement,
-                        ),
+                  // context.read<CounterBloc>().add(
+                  //       IncrementCounterEvent(
+                  //         incrementNum: myIncrement,
+                  //       ),
+                  //     );
+
+                  context.read<CounterCubit>().increment(
+                        incrementNum: state.counter,
                       );
-                  print(myIncrement);
+                  print(state.counter);
                 },
                 child: const Icon(Icons.add),
               ),
@@ -48,11 +53,14 @@ class CounterPage extends StatelessWidget {
                 heroTag: 'Resta',
                 onPressed: () {
                   print("Hola mundo");
-                  context.read<CounterBloc>().add(
-                        DecrementCounterEvent(
-                          decrementNum: state.counter,
-                        ),
-                      );
+                  // context.read<CounterBloc>().add(
+                  //       DecrementCounterEvent(
+                  //         decrementNum: state.counter,
+                  //       ),
+                  //     );
+                  BlocProvider.of<CounterCubit>(context).decrement(
+                    decrementNum: state.counter,
+                  );
                 },
                 child: const Icon(Icons.accessibility),
               ),
